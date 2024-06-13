@@ -52,4 +52,8 @@ connect()
 read()/write()
 close()
 
+## 3일차
+udp는 데이터경계가 잇기에 보내는 수만큼 반복함 (sendto함수 통해서,,,)
+
+도메인네임 ,dns서버
 
