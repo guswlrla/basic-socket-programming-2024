@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	sigemptyset(&act.sa_mask);
 	act.sa_flags = 0;
 
-	acpt_sock = sock(PF_INET, SOCK_STREAM, 0);
+	acpt_sock = socket(PF_INET, SOCK_STREAM, 0);
 	memset(&recv_adr, 0, sizeof(recv_adr));
 	recv_adr.sin_family = AF_INET;
 	recv_adr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -68,7 +68,7 @@ void urg_handler(int signo)
 }
 void error_handling(char *message)
 {
-	fputs(message, stderr);l
+	fputs(message, stderr);
 	fputc('\n', stderr);
 	exit(1);
 }
