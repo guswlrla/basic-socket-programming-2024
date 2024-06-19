@@ -10,15 +10,15 @@
 
  #define  TRUE  1
 
- char webpage[] = "HTTP/1.1 200 OK\r\n"  // 상태 라인
+ char webpage[] = "HTTP/1.1 200 OK\r\n"
                    "Server:Linux Web Server\r\n"
-                  "Content-Type: text/html; charset=UTF-8\r\n\r\n"  //메세지더
-                  "<!DOCTYPE html>\r\n"       // 웹브라우저에 HTML5로 작성된 문서임을 알림
-                  "<html><head><title> My Web Page </title>\r\n" //<html>html 시작,<head>문서속성,<title>제목
+                  "Content-Type: text/html; charset=UTF-8\r\n\r\n"
+                  "<!DOCTYPE html>\r\n"
+                  "<html><head><title> My Web Page </title>\r\n"
                    "<link rel=\"icon\" href=\"data:,\">\r\n"
-                  "<style>body {background-color: #FF2C00 }</style></head>\r\n"//<style>스타일,<CSS>시트
-                  "<body><center><h1>Hello world!!</h1><br>\r\n" //<h1>글자태그<br>한줄 띄우기
-                   "<img src=\"cat.jpeg\"></center></body></html>\r\n";
+                  "<style>body {background-color: #F6E3CE}</style></head>\r\n"
+                  "<body><center><h1>춘식이 등장</h1><br>\r\n"
+                   "<img src=\"cat.jpg\"></center></body></html>\r\n";
  int main(int argc, char *argv[])
  {
     struct sockaddr_in serv_addr, clnt_addr;
@@ -30,7 +30,6 @@
     char img_buf[700000];
 
     serv_sock = socket(AF_INET, SOCK_STREAM, 0);
-    /* 주소 재할당 */
     setsockopt(serv_sock, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(int));
 
     memset(&serv_addr, 0, sizeof(serv_addr));
@@ -47,18 +46,18 @@
        read(clnt_sock, buf, 2047);
        printf("%s\n", buf);
 
-       if(strstr(buf, "GET /cat.jpeg") != NULL) {
-       fdimg = open("cat.jpeg", O_RDONLY);
+       if(strstr(buf, "GET /cat.jpg") != NULL) {
+       fdimg = open("cat.jpg", O_RDONLY);
           if((img_size = read(fdimg, img_buf, sizeof(img_buf))) == -1) puts("file read error!!");
           close(fdimg);
 
           sprintf(buf, "HTTP/1.1 200 OK\r\n"
            "Server: Linux Web Server\r\n"
-           "Content-Type: image/jpeg\r\n"
+           "Content-Type: image/jpg\r\n"
            "Content-Length: %ld\r\n\r\n", img_size);
-          /* 헤더전송 */
+       
        if(write(clnt_sock, buf, strlen(buf)) < 0) puts("file write error!!");
-          /* 이미지전송*/
+          
           if(write(clnt_sock, img_buf, img_size) < 0) puts("file write error!!");
 
           close(clnt_sock);
