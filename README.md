@@ -50,14 +50,16 @@
     #include <fcntl.h>
 
     int open(const char *path, int flag); // path : 파일 이름 및 경로정보, flag : 파일 오픈모드 정보
+
+    /* flag에 전달할 수 있는 값
+    - O_CREAT : 필요하면 파일 생성
+    - O_TRUNC : 기존 데이터 전부 삭제
+    - O_APPEND : 기존 데이터 보존하고, 뒤에 이어서 저장
+    - O_RDONLY : 읽기 전용으로 파일 오픈
+    - O_WRONLY: 쓰기 전용으로 파일 오픈
+    - O_RDWR : 일기, 쓰기 겸용으로 파일 오픈
+    */
     ```
-    - flag에 전달할 수 있는 값
-        - O_CREAT : 필요하면 파일 생성
-        - O_TRUNC : 기존 데이터 전부 삭제
-        - O_APPEND : 기존 데이터 보존하고, 뒤에 이어서 저장
-        - O_RDONLY : 읽기 전용으로 파일 오픈
-        - O_WRONLY: 쓰기 전용으로 파일 오픈
-        - O_RDWR : 일기, 쓰기 겸용으로 파일 오픈
 - 파일 닫기
     
     ```c
