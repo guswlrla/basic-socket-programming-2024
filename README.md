@@ -8,6 +8,9 @@
 
     ```c
     #include <sys/socket.h>
+    // domain : 프로토콜 체계
+    // type : 소켓 데이터 전송방식
+    // protocol : 통신에 사용되는 프로토콜
     int socket(int domain, int type, int protocol);
     ```
     - IP주소와 포트번호 할당 : bind함수 호출
@@ -43,12 +46,12 @@
     - 1 : 표준출력(Standard Output)
     - 2 : 표준에러(Standard Error)
 - 파일 열기
+    - 데이터를 읽거나 쓰기 위해 파일을 여는 경우
 
     ```c
     #include <sys/types.h>
     #include <sys/stat.h>
     #include <fcntl.h>
-
     int open(const char *path, int flag); // path : 파일 이름 및 경로정보, flag : 파일 오픈모드 정보
 
     /* flag에 전달할 수 있는 값
@@ -61,14 +64,37 @@
     */
     ```
 - 파일 닫기
+    - 파일은 사용 후 반드시 닫아줘야 함
     
     ```c
     #include <unistd.h>
-
     int close(int fd); // fd : 닫고자하는 파일 또는 소켓의 파일 디스크립터
     ```
+- 파일에 데이터 쓰기
+    - write() : 파일에 데이터를 출력(전송)하는 함수
     
+    ```c
+    #include <unistd.h>    
+    // fd : 데이터 전송대상을 나타내는 파일 디스크립터
+    // buf : 전송할 데이터가 저장된 버퍼의 주소값
+    // nbytes : 전송할 데이터의 바이트 수
+    ssize_t write(int fd, const void * buf, size_t nbytes);
+    ```
+- 파일에 저장된 데이터 읽기
+    - read() : 데이터를 입력(수신)하는 함수
     
+    ```c
+    #include <unistd.h>
+    ssize_t read(int fd, void *buf, size_t nbytes);
+    ```
+
+### 3. 소켓의 프로토콜과 데이터 전송특성
+- 프로토콜 : 컴퓨터 상호간의 대화에 필요한 통신규약
+    - 예를들어, 두 사람이 전화를 통해 대화를 하기로 했다면 두 사람의 대화에 사용한 프로토콜은 전화임
+- socket함수 매개변수 이해
+    - 프로토콜 체계 : PF_INET -> 아직은 IPv4 프로토콜 체계만 사용
+
+
 TCP 잃어버리면 안되는 데이터 전송할 때
 UDP 잃어버려도 되는 데이터 전송할 때
 
@@ -89,7 +115,7 @@ unsigned -> 0과 양수만 표현
 빅 엔디안 -> 상위바이트의 값을 작은 번지수
 리틀 엔디안 -> 상위바이트의 값을 큰 번지수
 
-## 2일차
+## :white_check_mark:2일차
 INADDR_ANY-> 자동으로 서버가 갖고잇는 ip를 할당시켜줌
 
 네트워크 4계층
