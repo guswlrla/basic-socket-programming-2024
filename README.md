@@ -3,32 +3,70 @@
 
 ## :white_check_mark:1일차
 ### 1. 네트워크 프로그래밍 이해
-- 소켓의 생성과정
-    - 소켓 생성 : `socket`함수 호출
+- 서버 소켓의 생성과정
+    - 소켓 생성 : socket함수 호출
 
-    ```
+    ```c
     #include <sys/socket.h>
     int socket(int domain, int type, int protocol);
     ```
-    - IP주소와 포트번호 할당 : `bind`함수 호출
+    - IP주소와 포트번호 할당 : bind함수 호출
     
-    ```
+    ```c
     #include <sys/socket.h>
     int bind(int sockfd, struct sockaddr *myaddr, socklen_t addrlen);
     ```
-    - 연결요청 가능상태로 변경 : `listen`함수 호출
+    - 연결요청 가능상태로 변경 : listen함수 호출
 
-    ```
+    ```c
     #include <sys/socket.h>
     int listen(int sockfd, int backlog);
     ```
-    - 연결요청에 대한 수락 : `accept`함수 호출
+    - 연결요청에 대한 수락 : accept함수 호출
 
-    ```
+    ```c
     #include <sys/socket.h>
     int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
     ```
+- 클라이언트 소켓의 생성과정
+    - connect함수 호출
 
+    ```c
+    #include <sys/socket.h>
+    int connect(int sockfd, struct sockaddr *serv_addr, socklen_t addrlen);
+    ```
+
+### 2. 리눅스기반 파일조작
+- 리눅스에서의 소켓조작과 파일조작이 동일, 윈도우는 파일과 소켓을 구분지음
+- 파일 디스크립터(File Descripter) : 운영체제가 만든 파일 또는 소켓의 지칭을 편히 하기 위해 부여된 숫자
+    - 0 : 표준입력(Standard Input)
+    - 1 : 표준출력(Standard Output)
+    - 2 : 표준에러(Standard Error)
+- 파일 열기
+
+    ```c
+    #include <sys/types.h>
+    #include <sys/stat.h>
+    #include <fcntl.h>
+
+    int open(const char *path, int flag); // path : 파일 이름 및 경로정보, flag : 파일 오픈모드 정보
+    ```
+    - flag에 전달할 수 있는 값
+        - O_CREAT : 필요하면 파일 생성
+        - O_TRUNC : 기존 데이터 전부 삭제
+        - O_APPEND : 기존 데이터 보존하고, 뒤에 이어서 저장
+        - O_RDONLY : 읽기 전용으로 파일 오픈
+        - O_WRONLY: 쓰기 전용으로 파일 오픈
+        - O_RDWR : 일기, 쓰기 겸용으로 파일 오픈
+- 파일 닫기
+    
+    ```c
+    #include <unistd.h>
+
+    int close(int fd); // fd : 닫고자하는 파일 또는 소켓의 파일 디스크립터
+    ```
+    
+    
 TCP 잃어버리면 안되는 데이터 전송할 때
 UDP 잃어버려도 되는 데이터 전송할 때
 
