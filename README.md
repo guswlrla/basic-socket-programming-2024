@@ -1,17 +1,36 @@
 # basic-socket-programming-2024
-IoT 개발자과정 소켓프로그래밍 리포지토리
-Documents/GitHub/basic-socket-programming-2024/day02
+:computer:IoT 개발자과정 소켓프로그래밍 리포지토리:globe_with_meridians:
 
-## 1일차
-- 
---------------------------------------------------------------------------------------- 하기귀찮다ㅇㅅㅇ
+## :white_check_mark:1일차
+### 1. 네트워크 프로그래밍 이해
+- 소켓의 생성과정
+    - 소켓 생성 : `socket`함수 호출
+
+    ```
+    #include <sys/socket.h>
+    int socket(int domain, int type, int protocol);
+    ```
+    - IP주소와 포트번호 할당 : `bind`함수 호출
+    
+    ```
+    #include <sys/socket.h>
+    int bind(int sockfd, struct sockaddr *myaddr, socklen_t addrlen);
+    ```
+    - 연결요청 가능상태로 변경 : `listen`함수 호출
+
+    ```
+    #include <sys/socket.h>
+    int listen(int sockfd, int backlog);
+    ```
+    - 연결요청에 대한 수락 : `accept`함수 호출
+
+    ```
+    #include <sys/socket.h>
+    int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
+    ```
+
 TCP 잃어버리면 안되는 데이터 전송할 때
 UDP 잃어버려도 되는 데이터 전송할 때
-
-소-> 소켓(socket) 휴대폰을 고름
-말-> 바인더(bind) 전화번호 할당
-리-> 리슨(listen) 개통
-아-> 엑셉트(accept) 통화
 
 unsigned -> 0과 양수만 표현
 
