@@ -109,6 +109,7 @@
 - IPv4 주소체계
     - 네트워크 주소와 호스트 주소로 나뉨
     - 주소의 형태에 따라 A,B,C,D,E 클래스로 분류
+    
     [ipv4](https://raw.githubusercontent.com/guswlrla/basic-socket-programming-2024/main/images/ipv4_2.png)
 
 
