@@ -1,16 +1,16 @@
 # basic-socket-programming-2024
 :computer:IoT 개발자과정 소켓프로그래밍 리포지토리:globe_with_meridians:
 
-## :white_check_mark:1일차
+## :ballot_box_with_check:1일차
 ### 1. 네트워크 프로그래밍 이해
 - 서버 소켓의 생성과정
     - 소켓 생성 : socket함수 호출
+        - domain : 프로토콜 체계
+        - type : 소켓 데이터 전송방식
+        - protocol : 통신에 사용되는 프로토콜
 
     ```c
     #include <sys/socket.h>
-    // domain : 프로토콜 체계
-    // type : 소켓 데이터 전송방식
-    // protocol : 통신에 사용되는 프로토콜
     int socket(int domain, int type, int protocol);
     ```
     - IP주소와 포트번호 할당 : bind함수 호출
@@ -47,37 +47,37 @@
     - 2 : 표준에러(Standard Error)
 - 파일 열기
     - 데이터를 읽거나 쓰기 위해 파일을 여는 경우
+        - path : 파일 이름 및 경로
+        - flag : 파일 오픈모드
+            - O_CREAT : 필요하면 파일 생성
+            - O_TRUNC : 기존 데이터 전부 삭제
+            - O_APPEND : 기존 데이터 보존하고, 뒤에 이어서 저장
+            - O_RDONLY : 읽기 전용으로 파일 오픈
+            - O_WRONLY: 쓰기 전용으로 파일 오픈
+            - O_RDWR : 일기, 쓰기 겸용으로 파일 오픈
 
     ```c
     #include <sys/types.h>
     #include <sys/stat.h>
     #include <fcntl.h>
-    int open(const char *path, int flag); // path : 파일 이름 및 경로정보, flag : 파일 오픈모드 정보
-
-    /* flag에 전달할 수 있는 값
-    - O_CREAT : 필요하면 파일 생성
-    - O_TRUNC : 기존 데이터 전부 삭제
-    - O_APPEND : 기존 데이터 보존하고, 뒤에 이어서 저장
-    - O_RDONLY : 읽기 전용으로 파일 오픈
-    - O_WRONLY: 쓰기 전용으로 파일 오픈
-    - O_RDWR : 일기, 쓰기 겸용으로 파일 오픈
-    */
+    int open(const char *path, int flag);
     ```
 - 파일 닫기
     - 파일은 사용 후 반드시 닫아줘야 함
+        - fd : 닫고자하는 파일 또는 소켓의 파일 디스크립터
     
     ```c
     #include <unistd.h>
-    int close(int fd); // fd : 닫고자하는 파일 또는 소켓의 파일 디스크립터
+    int close(int fd);
     ```
 - 파일에 데이터 쓰기
     - write() : 파일에 데이터를 출력(전송)하는 함수
+        - fd : 데이터 전송대상을 나타내는 파일 디스크립터
+        - buf : 전송할 데이터가 저장된 버퍼의 주소값
+        - nbytes : 전송할 데이터의 바이트 수
     
     ```c
     #include <unistd.h>    
-    // fd : 데이터 전송대상을 나타내는 파일 디스크립터
-    // buf : 전송할 데이터가 저장된 버퍼의 주소값
-    // nbytes : 전송할 데이터의 바이트 수
     ssize_t write(int fd, const void * buf, size_t nbytes);
     ```
 - 파일에 저장된 데이터 읽기
@@ -95,21 +95,23 @@
     - 프로토콜 체계 : PF_INET(IPv4 인터넷 프로토콜 체계), 아직은 IPv4만 사용
     - 소켓의 타입 : 소켓의 데이터 전송방식
         - 연결지향형 소켓(SOCK_STREAM)
+            - TCP 소켓 생성, 잃어버리면 안되는 데이터를 전송할 경우
+            - 데이터 손실x, 전송 순서대로 데이터 수신, 전송되는 데이터 경계 존재x
         - 비연결지향형 소켓(SOCK_DGRAM)
+            - UDP 소켓 생성, 잃어버려도 되는 데이터를 전송할 경우
+            - 빠른 전송, 데이터 손실 우려, 한 번 전송할 때의 크기 제한, 전송되는 데이터 경계 존재
+    - 하나의 프로토콜 체계 안에서 데이터 전송방식이 동일한 프로토콜이 둘 이상 존재하는 경우에 세번째 인자 사용(일반적으론 0)
+
+### 4. 소켓에 할당되는 IP주소와 포트번호
+- IP(Internet Protocol) : 인터넷상에서 데이터를 송수신할 목적으로 컴퓨터에게 부여하는 값
+- 포트번호 : 프로그램상에서 생성되는 소켓을 구분하기 위해 소켓에 부여되는 번호, 실행되는 프로그램을 뜻함
+    - 하나의 운영체제 내에서 동일한 포트번호 중복할당x
+-
 
 
-TCP 잃어버리면 안되는 데이터 전송할 때
-UDP 잃어버려도 되는 데이터 전송할 때
 
-unsigned -> 0과 양수만 표현
 
-연결지향형 소켓(SOCK_STREAM) -> TCP, 놓는 순서대로 차곡차곡
-비연결지향형 소켓(SOCK_DGRAM) -> UDP, 빠른전송, 데이터손실 발생가능
-하나의 프로토콜 체계 안에서 데이터 전송방식이 동일한 프로토콜이 둘 이상 존재하는 경우, 세번째 인자사용(일반적으로는 0 사용)
 
-포트번호 -> 실행되는 프로그램을 뜻함
-하나의 운영체제 내에서 동일한 포트번호를 둘 이상의 소켓에 할당x
-그래서 포트번호를 10000번 이상으로,,,
 
 빅 엔디안 -> 상위바이트의 값을 작은 번지수
 리틀 엔디안 -> 상위바이트의 값을 큰 번지수
