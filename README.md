@@ -1,7 +1,7 @@
 # basic-socket-programming-2024
 :computer:IoT 개발자과정 소켓프로그래밍 리포지토리:globe_with_meridians:
 
-## :ballot_box_with_check:1일차
+## :white_check_mark:1일차
 ### 1. 네트워크 프로그래밍 이해
 - 서버 소켓의 생성과정
     - 소켓 생성 : socket함수 호출
@@ -106,8 +106,10 @@
 - IP(Internet Protocol) : 인터넷상에서 데이터를 송수신할 목적으로 컴퓨터에게 부여하는 값
 - 포트번호 : 프로그램상에서 생성되는 소켓을 구분하기 위해 소켓에 부여되는 번호, 실행되는 프로그램을 뜻함
     - 하나의 운영체제 내에서 동일한 포트번호 중복할당x
--
-
+- IPv4 주소체계
+    - 네트워크 주소와 호스트 주소로 나뉨
+    - 주소의 형태에 따라 A,B,C,D,E 클래스로 분류
+    [ipv4](https://raw.githubusercontent.com/guswlrla/basic-socket-programming-2024/main/images/ipv4_2.png)
 
 
 
