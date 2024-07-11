@@ -130,11 +130,14 @@
 
 ### 6. 인터넷주소 초기화와 할당
 - 문자열 정보를 네트워크 바이트 순서로 변환하는 함수
+    - string : 변환할 IP주소 정보를 담고 있는 문자열의 주소 값 전달
+    - addr
     
-    ```
+    ```c
     #include <arpa/inet.h>
-    in_addr_t_inet_addr(const char * string);
+    in_addr_t_inet_addr(const char * string,);
     ```
+
 
 ## :white_check_mark:2일차
 INADDR_ANY-> 자동으로 서버가 갖고잇는 ip를 할당시켜줌
