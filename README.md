@@ -112,12 +112,29 @@
     
     ![ipv4](https://raw.githubusercontent.com/guswlrla/basic-socket-programming-2024/main/images/ipv4_2.png)
 
+### 5. 네트워크 바이트 순서와 인터넷 주소 변환
+- CPU가 데이터를 메모리에 저장하는 방식(Host Byte Order)
+    - 빅 엔디안 : 상위바이트의 값을 작은 번지수에 저장
+    - 리틀 엔디안 : 상위바이트의 값을 큰 번지수에 저장
+- 네트워크를 통해서 데이터를 전송할 때에는 빅 엔디안으로 통일
+- 바이트의 순서변환을 돕는 함수
+    - htons에서 h는 호스트 바이트 순서, htons에서 n은 네트워크 바이트 순서
+    - s는 2바이트 short를 의미하므로 포트번호 변환, l은 4바이트 long을 의미하므로 IP주소 변환에 사용
 
+    ```c
+    unsigned short htons(unsigned short);
+    unsigned short ntohs(unsigned short);
+    unsigned long htonl(unsigned long);
+    unsigned long ntohs(unsigned long);
+    ```
 
-
-
-빅 엔디안 -> 상위바이트의 값을 작은 번지수
-리틀 엔디안 -> 상위바이트의 값을 큰 번지수
+### 6. 인터넷주소 초기화와 할당
+- 문자열 정보를 네트워크 바이트 순서로 변환하는 함수
+    
+    ```
+    #include <arpa/inet.h>
+    in_addr_t_inet_addr(const char * string);
+    ```
 
 ## :white_check_mark:2일차
 INADDR_ANY-> 자동으로 서버가 갖고잇는 ip를 할당시켜줌
