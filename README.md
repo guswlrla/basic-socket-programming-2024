@@ -4,7 +4,7 @@
 ## :white_check_mark:1일차
 ### 1. 네트워크 프로그래밍 이해
 - 서버 소켓의 생성과정
-    - 소켓 생성 : socket함수 호출
+    - 소켓 생성 : socket() 호출
         - domain : 프로토콜 체계
         - type : 소켓 데이터 전송방식
         - protocol : 통신에 사용되는 프로토콜
@@ -13,26 +13,26 @@
     #include <sys/socket.h>
     int socket(int domain, int type, int protocol);
     ```
-    - IP주소와 포트번호 할당 : bind함수 호출
+    - IP주소와 포트번호 할당 : bind() 호출
     
     ```c
     #include <sys/socket.h>
     int bind(int sockfd, struct sockaddr *myaddr, socklen_t addrlen);
     ```
-    - 연결요청 가능상태로 변경 : listen함수 호출
+    - 연결요청 가능상태로 변경 : listen() 호출
 
     ```c
     #include <sys/socket.h>
     int listen(int sockfd, int backlog);
     ```
-    - 연결요청에 대한 수락 : accept함수 호출
+    - 연결요청에 대한 수락 : accept() 호출
 
     ```c
     #include <sys/socket.h>
     int accept(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
     ```
 - 클라이언트 소켓의 생성과정
-    - connect함수 호출
+    - connect() 호출
 
     ```c
     #include <sys/socket.h>
@@ -110,7 +110,7 @@
     - 네트워크 주소와 호스트 주소로 나뉨
     - 주소의 형태에 따라 A,B,C,D,E 클래스로 분류
     
-    [ipv4](https://raw.githubusercontent.com/guswlrla/basic-socket-programming-2024/main/images/ipv4_2.png)
+    ![ipv4](https://raw.githubusercontent.com/guswlrla/basic-socket-programming-2024/main/images/ipv4_2.png)
 
 
 
